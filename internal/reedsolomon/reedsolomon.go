@@ -89,8 +89,8 @@ func Reconstruct(shards [][]byte, present []bool, dataShards int) error {
 		return ErrPresentMismatch
 	}
 	count := 0
-	for _, sh := range shards {
-		if sh != nil {
+	for _, p := range present {
+		if p {
 			count++
 		}
 	}
@@ -128,7 +128,7 @@ func Reconstruct(shards [][]byte, present []bool, dataShards int) error {
 	chosen := make([][]byte, dataShards)
 	pick := 0
 	for i := 0; i < total && pick < dataShards; i++ {
-		if shards[i] != nil {
+		if present[i] {
 			sub[pick] = C[i]
 			chosen[pick] = shards[i]
 			pick++
